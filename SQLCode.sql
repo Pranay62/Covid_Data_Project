@@ -21,11 +21,11 @@ order by 1,2
 -- Total Cases vs Total Deaths
 -- Shows likelihood of dying if you contract covid in your country
 
-Select Location, date, total_cases,total_deaths,
-ROUND((total_deaths/total_cases)*100.00,2) as DeathPercentage
+Select Location, date, CONVERT(int,total_cases),convert(int,total_deaths),
+(convert(int,total_deaths)/CONVERT(int,total_cases))*100.00 as DeathPercentage
 From CovidDeaths$
-Where location like '%india%' 
-and continent is not null 
+--Where location like '%india%' 
+where continent is not null 
 order by 1,2
 
 
@@ -136,6 +136,7 @@ from #PercentagePopulationVaccinated
 
 
 ------Creating view to store data for later visualiztions
+DROP view if exists PercentagePopulationVaccinated
 
 create view PercentagePopulationVaccinated as
 select cd.continent,cd.location,cd.date,cd.population,cv.new_vaccinations,
@@ -149,3 +150,29 @@ where cd.continent is not null
 
 select * 
 from PercentagePopulationVaccinated
+
+
+
+
+--In SQL, TEMP tables, VIEWs, and CTEs (Common Table Expressions) are all ways to organize and manipulate data, but they serve different purposes.
+
+--1. TEMP tables:
+--A TEMP table is a temporary table that is created and destroyed automatically within a session. 
+--It is usually used to store intermediate results during a complex query or to cache data for faster access. 
+--TEMP tables are stored in memory or on disk, depending on the size of the data, and they can be indexed and queried like regular tables.
+
+--2. VIEW:
+--A VIEW is a virtual table that is defined by a query. 
+--It is not a physical table, but rather a stored SELECT statement that can be used as a table in other queries. 
+--A VIEW is a read-only object, which means that you cannot insert, update, or delete data from it directly. 
+--Views are often used to simplify complex queries or to hide sensitive data from users.
+
+--3. CTE:
+--A CTE (Common Table Expression) is a named temporary result set that is defined within a query. 
+--Unlike a TEMP table or a VIEW, a CTE is not stored on disk or in memory, and it is only visible within the scope of the query in which it is defined. 
+--CTEs are often used to simplify complex queries, to break a query down into smaller steps, or to define a recursive query.
+
+--In summary, 
+--TEMP tables are used to store intermediate results during a complex query, 
+--VIEWS are used to simplify complex queries or hide sensitive data from users, and 
+--CTEs are used to break a query down into smaller steps or to define a recursive query.
