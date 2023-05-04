@@ -1,4 +1,4 @@
-SQL Project for "COVID 19 DATA EXPLORATION"
+**SQL Project for "COVID 19 DATA EXPLORATION"**
 
 This SQL project aims to explore COVID-19 data using various queries. 
 The project uses two tables, namely CovidDeaths$ and CovidVaccinations$, to retrieve the necessary data.
